@@ -32,13 +32,13 @@ class Sidebar extends Component {
             />
             &nbsp; Category
           </Link>
-          <Link to="?page=zzz">
+          {/* <Link to="?page=zzz">
             <img
               src="https://image.flaticon.com/icons/png/512/595/595067.png"
               width="20"
             />
             &nbsp;Test Error Link
-          </Link>
+          </Link> */}
         </div>
       </div>
     );

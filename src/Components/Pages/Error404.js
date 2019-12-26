@@ -6,7 +6,7 @@ class Error404 extends Component {
     return (
       <div>
         <div className="content">
-          {alert("Oops! Something went wrong")}
+          {/* {alert("Oops! Something went wrong")} */}
           <div id="notfound">
             <div className="notfound">
               <div className="notfound-404">

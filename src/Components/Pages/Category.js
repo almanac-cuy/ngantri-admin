@@ -17,19 +17,23 @@ class Category extends Component {
   //   this.getCategory();
   // }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.getCategory();
+  }
+
+  getCategory = async () => {
     try {
       const response = await Axios.get(
         "http://192.168.100.149:9400/api/instances/services/5e0216953c5f4e2b88afdc51"
       );
-      console.log(response.data.services);
+      // console.log(response.data.services);
       this.setState({
         services: response.data.services
       });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   handleEditChange = e => {
     e.preventDefault();
@@ -37,6 +41,115 @@ class Category extends Component {
       [e.target.name]: e.target.value
     });
   };
+
+  handleAddCategory = () => {
+    const name = this.state.name;
+    const duration = this.state.duration * 60;
+    const categoryNew = new FormData();
+    categoryNew.append("name", name);
+    categoryNew.append("duration", duration);
+    console.log(categoryNew);
+
+    Axios.post(
+      "http://192.168.100.149:9400/api/instances/services/5e0216953c5f4e2b88afdc51",
+      categoryNew
+    )
+      .then(() => {
+        this.getCategory();
+        this.setState({
+          name: "",
+          duration: ""
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  // handleEditCategory() {
+  //   const { name, duration } = this.state;
+  //   const categoryUpdate = {
+  //     name,
+  //     duration
+  //   };
+  //   Axios.patch
+  // }
+
+  addModal() {
+    return (
+      <div
+        className="modal fade"
+        id="exampleModal2"
+        tabIndex={-1}
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Edit
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div className="form-group">
+                  <label htmlFor="exampleInputEmail1">Name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    name="name"
+                    value={this.state.name}
+                    onChange={this.handleEditChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="exampleInputPassword1">Duration</label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="exampleInputPassword1"
+                    name="duration"
+                    value={this.state.duration}
+                    onChange={this.handleEditChange}
+                  />
+                </div>
+                <small id="emailHelp" className="form-text text-muted">
+                  Inpun in minute
+                </small>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                onClick={this.handleAddCategory}
+                type="button"
+                className="btn btn-primary"
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   editModal() {
     const { name, duration } = this.state;
@@ -112,12 +225,16 @@ class Category extends Component {
   }
 
   render() {
-    // console.log(this.state.category);
-
+    // console.log(this.state.services);
     return (
       <div>
         <div className="content">
-          <button style={{ float: "right" }} className="button button1">
+          <button
+            style={{ float: "right" }}
+            className="button button1"
+            data-toggle="modal"
+            data-target="#exampleModal2"
+          >
             Add Category
           </button>
           <h2>Category Table</h2>
@@ -162,6 +279,7 @@ class Category extends Component {
           </div>
         </div>
         {this.editModal()}
+        {this.addModal()}
       </div>
     );
   }

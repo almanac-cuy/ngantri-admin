@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import { Database, Auth } from "./Config/firebase";
 import "./App.css";
-import Login from "./Components/Pages/Login";
+import Login from "./Components/Login";
 import Admin from "./Components/Admin";
 
 class App extends Component {

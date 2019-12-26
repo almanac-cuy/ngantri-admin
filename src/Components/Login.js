@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "../Css/Login.css";
+import "./Css/Login.css";
 import firebase from "firebase";
-import { Database, Auth } from "../../Config/firebase";
+import { Database, Auth } from "../Config/firebase";
 
 export default class Login extends Component {
   constructor(props) {

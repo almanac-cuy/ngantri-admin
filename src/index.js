@@ -10,7 +10,7 @@ import * as serviceWorker from "./serviceWorker";
 // import Kategori from "./Components/Kategori";
 // import Modal1 from "./Components/Modal1";
 import Admin from "./Components/Admin";
-import Login from "./Components/Pages/Login";
+import Login from "./Components/Login";
 const EnhancedApp = () => {
   return (
     <Router>
